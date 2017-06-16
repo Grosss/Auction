@@ -16,10 +16,13 @@ namespace ORM.Entities
         }
 
         public int LotId { get; set; }
+        [Required]
+        [StringLength(50)]
         public string Name { get; set; }
         public decimal Price { get; set; }
         public byte[] Image { get; set; }
         public DateTime ExpirationTime { get; set; }
+        [StringLength(300)]
         public string Description { get; set; }
 
         public int UserId { get; set; }

@@ -15,7 +15,9 @@ namespace ORM.Entities
             Lots = new HashSet<Lot>();
         }
 
-        public int CategoryId { get; set; }        
+        public int CategoryId { get; set; }
+        [Required]
+        [StringLength(50)]
         public string Name { get; set; }
         
         public virtual ICollection<Lot> Lots { get; set; }
