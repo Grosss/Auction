@@ -40,11 +40,28 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Mappers\BllCategoryMapper.cs" />
+    <Compile Include="Mappers\BllLotMapper.cs" />
+    <Compile Include="Mappers\BllRoleMapper.cs" />
+    <Compile Include="Mappers\BllUserMapper.cs" />
+    <Compile Include="Mappers\BllBidMapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\BidService.cs" />
+    <Compile Include="Services\CategoryService.cs" />
+    <Compile Include="Services\LotService.cs" />
+    <Compile Include="Services\RoleService.cs" />
+    <Compile Include="Services\UserService.cs" />
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <Folder Include="Mappers\" />
-    <Folder Include="Services\" />
+    <ProjectReference Include="..\BLL.Interface\BLL.Interface.csproj">
+      <Project>{ce141f9e-335d-4309-bbcd-51943d336e7f}</Project>
+      <Name>BLL.Interface</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DAL.Interface\DAL.Interface.csproj">
+      <Project>{71ebaf2d-5d40-4269-9b42-0929b2f6f79e}</Project>
+      <Name>DAL.Interface</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
