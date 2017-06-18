@@ -27,7 +27,7 @@ namespace DAL.Mappers
 
         public static Bid ToOrmBid(this DalBid bid)
         {
-            Bid ormbid = new Bid
+            Bid ormBid = new Bid
             {
                 BidId = bid.Id,
                 Price = bid.Price,
@@ -36,7 +36,7 @@ namespace DAL.Mappers
                 UserId = bid.UserId
             };
 
-            return ormbid;
+            return ormBid;
         }
     }
 }

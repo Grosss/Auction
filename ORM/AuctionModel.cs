@@ -12,7 +12,7 @@ namespace ORM
     public partial class AuctionContext : DbContext
     {
         public AuctionContext()
-             : base("name=AuctionDb")
+             : base("name=Auction")
         {
             Database.SetInitializer<AuctionContext>(new DropCreateDatabaseIfModelChanges<AuctionContext>());
         }
