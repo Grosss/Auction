@@ -4,15 +4,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Data.Entity;
+using System.ComponentModel.DataAnnotations;
 using ORM.Entities;
 
 namespace ORM
 {
-    public class AuctionModel : DbContext
+    public partial class AuctionContext : DbContext
     {
-        public AuctionModel()
-             : base("name=AuctionModel")
+        public AuctionContext()
+             : base("name=AuctionDb")
         {
+            Database.SetInitializer<AuctionContext>(new DropCreateDatabaseIfModelChanges<AuctionContext>());
         }
 
         public virtual DbSet<User> Users { get; set; }
