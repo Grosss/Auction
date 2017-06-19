@@ -22,11 +22,11 @@ namespace BLL.Services
             this.bidRepository = repository;
         }
 
-        public IEnumerable<BidEntity> GetAllBidsForLot(int lotId)
+        public IEnumerable<BidEntity> GetAllBids()
         {
-            return bidRepository.GetAllBidsForLot(lotId).Select(bid => bid.ToBllBid());
+            return bidRepository.GetAll().Select(bid => bid.ToBllBid());
         }
-
+        
         public BidEntity GetBidById(int id)
         {
             return bidRepository.GetById(id).ToBllBid();
@@ -50,10 +50,10 @@ namespace BLL.Services
             uow.Commit();
         }
 
-        public IEnumerable<BidEntity> GetAllBids()
+        public IEnumerable<BidEntity> GetAllBidsForLot(int lotId)
         {
-            return bidRepository.GetAll().Select(bid => bid.ToBllBid());
-        }     
+            return bidRepository.GetAllBidsForLot(lotId).Select(bid => bid.ToBllBid());
+        }
 
         public BidEntity GetLastBidForLot(int lotId)
         {
