@@ -32,6 +32,8 @@ namespace DAL.Concrete
 
         public void Create(DalUser entity)
         {
+            var role = context.Set<Role>().FirstOrDefault(r => r.Name == "user");
+            entity.ToOrmUser().Roles.Add(role);
             context.Set<User>().Add(entity.ToOrmUser());
         }
 
