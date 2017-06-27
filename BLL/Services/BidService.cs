@@ -29,7 +29,7 @@ namespace BLL.Services
         
         public BidEntity GetBidById(int id)
         {
-            return bidRepository.GetById(id).ToBllBid();
+            return bidRepository.GetById(id)?.ToBllBid();
         }
 
         public void CreateBid(BidEntity entity)
@@ -55,9 +55,14 @@ namespace BLL.Services
             return bidRepository.GetAllBidsForLot(lotId).Select(bid => bid.ToBllBid());
         }
 
+        public IEnumerable<BidEntity> GetAllBidsForUser(int userId)
+        {
+            return bidRepository.GetAllBidsForUser(userId).Select(bid => bid.ToBllBid());
+        }
+
         public BidEntity GetLastBidForLot(int lotId)
         {
-            return bidRepository.GetLastBidForLot(lotId).ToBllBid();
+            return bidRepository.GetLastBidForLot(lotId)?.ToBllBid();
         }        
     }
 }

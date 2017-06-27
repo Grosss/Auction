@@ -29,7 +29,7 @@ namespace BLL.Services
 
         public CategoryEntity GetCategoryById(int id)
         {
-            return categoryRepository.GetById(id).ToBllCategory();
+            return categoryRepository.GetById(id)?.ToBllCategory();
         }
 
         public void CreateCategory(CategoryEntity entity)
@@ -52,7 +52,7 @@ namespace BLL.Services
 
         public CategoryEntity GetCategoryByName(string name)
         {
-            return categoryRepository.GetCategoryByName(name).ToBllCategory();
+            return categoryRepository.GetCategoryByName(name)?.ToBllCategory();
         }
     }
 }

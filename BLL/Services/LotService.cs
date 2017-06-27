@@ -29,7 +29,7 @@ namespace BLL.Services
 
         public LotEntity GetLotById(int id)
         {
-            return lotRepository.GetById(id).ToBllLot();
+            return lotRepository.GetById(id)?.ToBllLot();
         }
 
         public void CreateLot(LotEntity entity)
@@ -57,7 +57,7 @@ namespace BLL.Services
 
         public IEnumerable<LotEntity> GetAllLotsForUser(int userId)
         {
-            return lotRepository.GetAllLotsForCategory(userId).Select(lot => lot.ToBllLot());
+            return lotRepository.GetAllLotsForUser(userId).Select(lot => lot.ToBllLot());
         }
     }
 }

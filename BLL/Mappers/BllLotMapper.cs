@@ -12,6 +12,9 @@ namespace BLL.Mappers
     {
         public static LotEntity ToBllLot(this DalLot lot)
         {
+            if (lot == null)
+                return null;
+
             LotEntity bllLot = new LotEntity
             {
                 Id = lot.Id,
@@ -29,6 +32,9 @@ namespace BLL.Mappers
 
         public static DalLot ToDalLot(this LotEntity lot)
         {
+            if (lot == null)
+                return null;
+
             DalLot dalLot = new DalLot
             {
                 Id = lot.Id,

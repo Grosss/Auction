@@ -29,7 +29,7 @@ namespace BLL.Services
 
         public UserEntity GetUserById(int id)
         {
-            return userRepository.GetById(id).ToBllUser();
+            return userRepository.GetById(id)?.ToBllUser();
         }
 
         public void CreateUser(UserEntity entity)
@@ -64,12 +64,12 @@ namespace BLL.Services
 
         public UserEntity GetUserByEmail(string email)
         {
-            return userRepository.GetUserByEmail(email).ToBllUser();
+            return userRepository.GetUserByEmail(email)?.ToBllUser();
         }        
 
         public UserEntity GetUserByLogin(string login)
-        {
-            return userRepository.GetUserByLogin(login).ToBllUser();
+        {           
+            return userRepository.GetUserByLogin(login)?.ToBllUser();
         }        
     }
 }

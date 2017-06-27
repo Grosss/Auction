@@ -12,6 +12,9 @@ namespace BLL.Mappers
     {
         public static CategoryEntity ToBllCategory(this DalCategory category)
         {
+            if (category == null)
+                return null;
+
             CategoryEntity bllCategory = new CategoryEntity
             {
                 Id = category.Id,
@@ -23,6 +26,9 @@ namespace BLL.Mappers
 
         public static DalCategory ToDalCategory(this CategoryEntity category)
         {
+            if (category == null)
+                return null;
+
             DalCategory dalCategory = new DalCategory
             {
                 Id = category.Id,

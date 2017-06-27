@@ -15,6 +15,7 @@ namespace BLL.Interface.Services
         void DeleteBid(BidEntity entity);
         void UpdateBid(BidEntity entity);
         IEnumerable<BidEntity> GetAllBidsForLot(int lotId);
+        IEnumerable<BidEntity> GetAllBidsForUser(int userId);
         BidEntity GetLastBidForLot(int lotId);
     }
 }

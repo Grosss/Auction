@@ -29,7 +29,7 @@ namespace BLL.Services
 
         public RoleEntity GetRoleById(int id)
         {
-            return roleRepository.GetById(id).ToBllRole();
+            return roleRepository.GetById(id)?.ToBllRole();
         }
 
         public void CreateRole(RoleEntity entity)

@@ -12,6 +12,9 @@ namespace BLL.Mappers
     {
         public static BidEntity ToBllBid(this DalBid bid)
         {
+            if (bid == null)
+                return null;
+
             BidEntity bllBid = new BidEntity
             {
                 Id = bid.Id,
@@ -26,6 +29,9 @@ namespace BLL.Mappers
 
         public static DalBid ToDalBid(this BidEntity bid)
         {
+            if (bid == null)
+                return null;
+
             DalBid dalBid = new DalBid
             {
                 Id = bid.Id,
