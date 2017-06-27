@@ -12,9 +12,10 @@ namespace ORM
     public partial class AuctionContext : DbContext
     {
         public AuctionContext()
-             : base("name=Auction")
+             : base("name=NewAuction")
         {
-            Database.SetInitializer<AuctionContext>(new DropCreateDatabaseIfModelChanges<AuctionContext>());
+            //Database.SetInitializer<AuctionContext>(new DropCreateDatabaseIfModelChanges<AuctionContext>());
+            //Database.SetInitializer<AuctionContext>(new AuctionDBInitializer());
         }
 
         public virtual DbSet<User> Users { get; set; }
@@ -29,13 +30,13 @@ namespace ORM
                 .HasMany<Lot>(c => c.Lots)
                 .WithRequired(l => l.Category)
                 .HasForeignKey(l => l.CategoryId)
-                .WillCascadeOnDelete(false);
+                .WillCascadeOnDelete(true);
 
             modelBuilder.Entity<Lot>()
                 .HasMany<Bid>(l => l.Bids)
                 .WithRequired(b => b.Lot)
                 .HasForeignKey(b => b.LotId)
-                .WillCascadeOnDelete(false);
+                .WillCascadeOnDelete(true);
 
             modelBuilder.Entity<User>()
                 .HasMany<Lot>(u => u.Lots)
@@ -47,7 +48,7 @@ namespace ORM
                 .HasMany<Bid>(u => u.Bids)
                 .WithRequired(b => b.User)
                 .HasForeignKey(b => b.UserId)
-                .WillCascadeOnDelete(false);
+                .WillCascadeOnDelete(true);
 
             modelBuilder.Entity<User>()
                 .HasMany<Role>(u => u.Roles)
@@ -58,6 +59,34 @@ namespace ORM
                     ur.MapRightKey("RoleId");
                     ur.ToTable("UserRoles");
                 });
+        }        
+    }
+
+    public class AuctionDBInitializer : DropCreateDatabaseIfModelChanges<AuctionContext>
+    {
+        protected override void Seed(AuctionContext context)
+        {
+            var defaultRoles = new List<Role>();
+
+            defaultRoles.Add(new Role() { RoleId = 1, Name = "admin" });
+            defaultRoles.Add(new Role() { RoleId = 2, Name = "moderator" });
+            defaultRoles.Add(new Role() { RoleId = 3, Name = "user" });
+
+            foreach (var role in defaultRoles)
+                context.Roles.Add(role);
+
+            var defaultCategories = new List<Category>();
+
+            defaultCategories.Add(new Category() { CategoryId = 1, Name = "Other" });
+            defaultCategories.Add(new Category() { CategoryId = 2, Name = "Sport" });
+            defaultCategories.Add(new Category() { CategoryId = 3, Name = "Clothes" });
+            defaultCategories.Add(new Category() { CategoryId = 4, Name = "Phones" });
+            defaultCategories.Add(new Category() { CategoryId = 5, Name = "Computers" });
+
+            foreach (var category in defaultCategories)
+                context.Categories.Add(category);
+
+            base.Seed(context);
         }
     }
 }
