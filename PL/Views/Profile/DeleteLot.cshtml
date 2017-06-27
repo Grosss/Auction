@@ -1,0 +1,20 @@
+﻿@model PL.Models.LotViewModel
+
+@{
+    ViewBag.Title = "Delete lot";
+}
+
+<h2>Lot deleting</h2>
+<div>Are you sure you want to delete the lot <b>@Html.DisplayFor(model => model.Name)</b>?</div>
+<br />
+<br />
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="form-horizontal">
+        <div class="form-group">
+            <input type="submit" value="Delete" class="btn btn-default" style="margin-right:20px; background-color: #42ba1d" />
+            @Html.ActionLink("Cancel", "MyLots", "Profile", new { }, new { id = "mylots", @class = "btn btn-default", @style = "background-color: #b91818; margin-right:0px" })                
+        </div>
+    </div>
+}

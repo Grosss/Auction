@@ -1,0 +1,46 @@
+﻿@using MvcPL.Infrastructure
+@using MvcPL.Models
+@model ResultViewModel<BidViewModel>
+
+@{
+    ViewBag.Title = "My bids";
+    string NoResults = ViewBag.NoBids;
+}
+
+<div class="row">
+    <div class="panel panel-default">
+        <div class="panel-heading" style="margin-top:20px">My bids</div>
+        <table class="table">            
+            <thead>
+                <td>Lot ID</td>                
+                <td>Title</td>
+                <td>Seller</td>
+                <td>Your bid</td>
+                <td>Date of bid</td>
+            </thead>
+            
+            @foreach (var bid in Model.Results)
+            {                
+                <tr>
+                    <td>@bid.LotId.ToString()</td>
+                    <td>@Html.ActionLink(bid.LotTitle, "Details", "Home", new { id = bid.LotId }, new { id = "detailedlot" })</td>                    
+                    <td>@bid.UserName</td>
+                    <td>@bid.Price</td>
+                    <td>@bid.DateOfBid.ToLongDateString()</td>
+                </tr>
+            }
+        </table>
+    </div>
+    @if (string.IsNullOrEmpty(NoResults))
+    {
+        <div class="row">
+            <div class="col-md-4 col-md-offset-4">
+                @Html.Pagination(Model.PagesNumber, Model.CurrentPage, x => Url.Action("MyBids", "Home", new { page = x }))
+            </div>
+        </div>
+    }
+    else
+    {
+        <h3>@ViewBag.NoBids</h3>
+    }
+</div>

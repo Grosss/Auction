@@ -18,11 +18,11 @@ namespace MvcPL.Providers
         public IRoleService RoleService
             => (IRoleService)System.Web.Mvc.DependencyResolver.Current.GetService(typeof(IRoleService));
 
-        public MembershipUser CreateUser(string email, string login, string password, string firstName, string lastName, decimal money = 0)
+        public MembershipUser CreateUser(string email, string login, string password, decimal money = 0)
         {
             MembershipUser membershipUser = GetUser(login, false);
 
-            if (ReferenceEquals(membershipUser, null))
+            if (!ReferenceEquals(membershipUser, null))
                 return null;
 
             var user = new UserEntity
@@ -30,12 +30,12 @@ namespace MvcPL.Providers
                 Email = email,
                 Login = login,
                 Password = Crypto.HashPassword(password),
-                FirstName = firstName,
-                LastName = lastName,
                 Money = money                
             };
             
             UserService.CreateUser(user);
+            RoleService.AddRoleToUser(UserService.GetUserByLogin(user.Login).Id, 
+                RoleService.GetAllRoles().SingleOrDefault(r => r.Name == "user").Id);
             membershipUser = GetUser(login, false);
             return membershipUser;
         }
@@ -56,11 +56,11 @@ namespace MvcPL.Providers
             return memberUser;
         }
 
-        public override bool ValidateUser(string login, string password)
+        public override bool ValidateUser(string email, string password)
         {
-            var user = UserService.GetUserByLogin(login);
+            var user = UserService.GetUserByEmail(email);
 
-            if (!ReferenceEquals(user, null) && Crypto.VerifyHashedPassword(user.Password, password))
+            if (user != null && Crypto.VerifyHashedPassword(user.Password, password))
                 return true;
             else
                 return false;

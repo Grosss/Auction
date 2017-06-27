@@ -1,0 +1,70 @@
+﻿@using PL.Infrastructure
+@using PL.Models
+@model ResultListViewModel<LotViewModel>
+
+@{
+    ViewBag.Title = "My Lots";
+    string NoResults = ViewBag.NoLots;
+}
+
+<div class="row">
+    <div class="panel panel-default" style="margin-top:20px">
+        <div class="panel-heading">My lots</div>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Image</th>
+                    <th>Title</th>
+                    <th>Current price</th>
+                    <th>End date</th>
+                    <th>Edit/Delete</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var lot in Model.Results)
+                {
+                    <tr>
+                        <td>
+                            @if (lot.Image != null)
+                            {
+                                @Html.Raw($"<img alt='{lot.Name}' style='max-width:100%;' height='125' src=\"data:image/jpeg;base64,"
+                                                 + Convert.ToBase64String(lot.Image) + "\" />")
+                            }
+                            else
+                            {
+                                <img src="~/Images/no_image.jpg" style="max-width:100%;" alt="@lot.Name" height="125">
+                            }
+                        </td>
+                        <td>@Html.ActionLink(lot.Name, "Details", "Auction", new { lotId = lot.Id }, new { id = "detailedlot" })</td>
+                        <td>@lot.Price</td>
+                        <td>@lot.ExpirationTime.ToString()</td>
+                        <td>
+                            @if(lot.ExpirationTime > DateTime.Now){
+                            <div>
+                                @Html.ActionLink("Edit", "EditLot", "Profile", new { lotId = lot.Id },
+                           new { id = "editlot" + lot.Id, @class = "btn btn-default", @style = "background-color: #ee7600" })
+                            </div>
+                            }
+                            <div style="margin-top:10px">
+                            @Html.ActionLink("Delete", "DeleteLot", "Profile", new { lotId = lot.Id },
+                           new { id = "deletelot" + lot.Id, @class = "btn btn-default", @style = "background-color: #ff0000" })
+                            </div>                            
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    @if (string.IsNullOrEmpty(NoResults))
+    {
+        <div class="row">
+            <div class="col-md-4 col-md-offset-4">
+                @Html.Pagination(Model.PagesNumber, Model.CurrentPage, x => Url.Action("MyLots", "Profile", new { page = x }))
+            </div>
+        </div>
+    }
+    else
+    {
+        <h3>@NoResults</h3>
+    }
+</div>

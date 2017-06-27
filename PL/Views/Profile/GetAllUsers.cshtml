@@ -1,0 +1,61 @@
+﻿@using PL.Infrastructure
+@using PL.Models
+@model ResultListViewModel<EditUserViewModel>
+
+@{
+    ViewBag.Title = "Users";
+    string NoResults = ViewBag.NoUsers;
+}
+
+<div class="row">
+    <div class="panel panel-default" style="margin-top:20px">
+        <div class="panel-heading">All users</div>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Username</th>
+                    <th>Email</th>
+                    <th>FirstName</th>
+                    <th>LastName</th>
+                    <th>User's roles</th>
+                    <th>Delete user</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var user in Model.Results)
+                {
+                    <tr>
+                        <td>@user.Login</td>
+                        <td>@user.Email</td>
+                        <td>@user.FirstName</td>
+                        <td>@user.LastName</td>
+                        <td>
+                            @foreach(var role in user.Roles)
+                            {
+                                <div>@role</div>
+                            }
+                        </td>
+                        <td>
+                            <div>
+                                @Html.ActionLink("Delete", "DeleteUser", "Profile", new { userId = user.Id },
+                           new { id = "deleteuser" + user.Id, @class = "btn btn-default", @style = "background-color: #ff0000" })
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    @if (string.IsNullOrEmpty(NoResults))
+    {
+        <div class="row">
+            <div class="col-md-4 col-md-offset-4">
+                @Html.Pagination(Model.PagesNumber, Model.CurrentPage, x => Url.Action("GetAllUsers", "Profile", new { page = x }))
+            </div>
+        </div>
+    }
+    else
+    {
+        <h3>@ViewBag.NoUsers</h3>
+    }
+</div>

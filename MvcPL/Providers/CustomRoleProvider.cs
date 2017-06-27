@@ -13,7 +13,7 @@ namespace MvcPL.Providers
     public class CustomRoleProvider : RoleProvider
     {
         public IUserService UserService
-           => (IUserService)System.Web.Mvc.DependencyResolver.Current.GetService(typeof(IUserService));
+            => (IUserService)System.Web.Mvc.DependencyResolver.Current.GetService(typeof(IUserService));
 
         public IRoleService RoleService
             => (IRoleService)System.Web.Mvc.DependencyResolver.Current.GetService(typeof(IRoleService));
@@ -22,7 +22,7 @@ namespace MvcPL.Providers
         {
             var user = UserService.GetUserByLogin(login);
 
-            if (ReferenceEquals(user, null))
+            if (user == null)
                 return false;
 
             return RoleService.GetUserRoles(user.Id).Any(role => role.Name == roleName);
@@ -32,6 +32,8 @@ namespace MvcPL.Providers
         {
             var user = UserService.GetUserByLogin(login);
 
+            if (user == null)
+                return null;
             var entityRoles = RoleService.GetUserRoles(user.Id);
 
             string[] roles = new string[entityRoles.Count()];

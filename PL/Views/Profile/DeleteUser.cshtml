@@ -1,0 +1,28 @@
+﻿@model PL.Models.EditUserViewModel
+
+@{
+    ViewBag.Title = "Delete profile";
+}
+
+<h2>Profile deleting</h2>
+<div>@ViewBag.Message</div>
+<br />
+<br />
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="form-horizontal">
+        <div class="form-group">
+            <input type="submit" value="Delete" class="btn btn-default" style="margin-right:20px; background-color: #42ba1d" />
+            @if (User.IsInRole("admin"))
+            {
+                @Html.ActionLink("Cancel", "GetAllUsers", "Profile", new { }, new { id = "getallusers", @class = "btn btn-default", @style = "background-color: #b91818; margin-right:0px" })
+
+            }
+            else
+            {
+                @Html.ActionLink("Cancel", "MyProfile", "Profile", new { }, new { id = "myprofile", @class = "btn btn-default", @style = "background-color: #b91818; margin-right:0px" })
+            }                            
+        </div>
+    </div>
+}

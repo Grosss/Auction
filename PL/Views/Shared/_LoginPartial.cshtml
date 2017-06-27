@@ -1,0 +1,32 @@
+﻿
+@if (Request.IsAuthenticated)
+{
+    @Html.AntiForgeryToken()                    
+        <ul class="nav navbar-nav navbar-right">
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">@User.Identity.Name<span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                    <li><a href="@Url.Action("MyProfile", "Profile")"><span class="glyphicon glyphicon-user"></span> My profile</a></li>
+                    <li role="separator" class="divider"></li>  
+                    <li><a href="@Url.Action("MyPurchases", "Profile")"><span class="glyphicon glyphicon-shopping-cart"></span> My purchases</a></li>        
+                    <li><a href="@Url.Action("MyBids", "Profile")"><span class="glyphicon glyphicon-hand-up"></span> My bids</a></li>
+                    <li><a href="@Url.Action("MyLots", "Profile")"><span class="glyphicon glyphicon-list-alt"></span> My lots</a></li>
+                    <li><a href="@Url.Action("CreateLot", "Profile")"><span class="glyphicon glyphicon-usd"></span> Create lot</a></li>
+                    <li role="separator" class="divider"></li>                   
+                    @if (User.IsInRole("admin"))
+                    {
+                        <li><a href="@Url.Action("GetAllUsers", "Profile")"><span class="glyphicon glyphicon-sort-by-alphabet"></span> Users</a></li>
+                        <li role="separator" class="divider"></li>
+                    }
+                    <li>@Html.ActionLink("LogOut", "LogOff", "Account", null, null)</li>
+                </ul>
+            </li>   
+        </ul>
+}
+else
+{
+    <ul class="nav navbar-nav navbar-right">
+        <li>@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
+        <li>@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+    </ul>
+}

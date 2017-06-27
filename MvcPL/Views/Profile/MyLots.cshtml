@@ -1,0 +1,54 @@
+﻿@using MvcPL.Infrastructure
+@using MvcPL.Models
+@model ResultViewModel<LotViewModel>
+
+@{
+    ViewBag.Title = "My Lots";
+    string NoResults = ViewBag.NoLots;
+}
+
+<div class="row">
+    <div class="panel panel-default">
+        <div class="panel-heading" style="margin-top:20px">My lots</div>
+        <table class="table">
+            <thead>
+            <td>Image</td>
+            <td>Title</td>
+            <td>Current price</td>
+            <td>End date</td>
+            </thead>
+
+            @foreach (var lot in Model.Results)
+            {
+                <tr>                    
+                    <td>
+                        @if (lot.Image != null)
+                        {
+                            <img src="@lot.Image" alt="@lot.Name">
+                        }
+                        else
+                        {
+                            <img src="~/Images/no_image.jpg" style="max-width:100%;" alt="@lot.Name">
+                        }
+                    </td>
+                    <td>@lot.Name</td>
+                    <td>@lot.Price</td>
+                    <td>@lot.ExpirationTime.ToLongDateString()</td>
+                    @*<td>@Html.ActionLink(Update lot, "Details", "Home", new { id = lot.LotId }, new { id = "detailedlot" })</td>*@
+                </tr>
+            }
+        </table>
+    </div>
+    @if (string.IsNullOrEmpty(NoResults))
+    {
+        <div class="row">
+            <div class="col-md-4 col-md-offset-4">
+                @Html.Pagination(Model.PagesNumber, Model.CurrentPage, x => Url.Action("MyLots", "Profile", new { page = x }))
+            </div>
+        </div>
+    }
+    else
+    {
+        <h3>@NoResults</h3>
+    }
+</div>
