@@ -48,7 +48,6 @@ namespace DAL.Concrete
             var user = context.Set<User>().FirstOrDefault(u => u.UserId == entity.Id);
             if (user != null)
             {
-                user.UserId = entity.Id;
                 user.Email = entity.Email;
                 user.Login = entity.Login;
                 user.Password = entity.Password;

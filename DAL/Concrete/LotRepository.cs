@@ -46,7 +46,6 @@ namespace DAL.Concrete
             var lot = context.Set<Lot>().FirstOrDefault(l => l.LotId == entity.Id);
             if (lot != null)
             {
-                lot.LotId = entity.Id;
                 lot.Name = entity.Name;
                 lot.Price = entity.Price;
                 lot.Image = entity.Image;

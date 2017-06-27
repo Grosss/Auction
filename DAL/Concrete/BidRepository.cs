@@ -46,7 +46,6 @@ namespace DAL.Concrete
             var bid = context.Set<Bid>().FirstOrDefault(b => b.BidId == entity.Id);
             if (bid != null)
             {
-                bid.BidId = entity.Id;
                 bid.Price = entity.Price;
                 bid.DateOfBid = entity.DateOfBid;
                 bid.LotId = entity.LotId;
@@ -59,9 +58,14 @@ namespace DAL.Concrete
             return context.Set<Bid>().ToList().Where(bid => bid.LotId == lotId).Select(bid => bid.ToDalBid());
         }
 
+        public IEnumerable<DalBid> GetAllBidsForUser(int userId)
+        {
+            return context.Set<Bid>().ToList().Where(bid => bid.UserId == userId).Select(bid => bid.ToDalBid());
+        }
+
         public DalBid GetLastBidForLot(int lotId)
         {
-            return context.Set<Bid>().ToList().Where(bid => bid.LotId == lotId).OrderByDescending(x => x.Price).FirstOrDefault().ToDalBid();
+            return context.Set<Bid>().ToList().Where(bid => bid.LotId == lotId).OrderByDescending(x => x.Price).FirstOrDefault()?.ToDalBid();
         }
     }
 }

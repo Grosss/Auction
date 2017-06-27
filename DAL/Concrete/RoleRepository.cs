@@ -46,7 +46,6 @@ namespace DAL.Concrete
             var role = context.Set<Role>().FirstOrDefault(r => r.RoleId == entity.Id);
             if (role != null)
             {
-                role.RoleId = entity.Id;
                 role.Name = entity.Name;
             }
         }

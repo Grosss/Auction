@@ -10,6 +10,7 @@ namespace DAL.Interface.Repository
     public interface IBidRepository : IRepository<DalBid>
     {
         IEnumerable<DalBid> GetAllBidsForLot(int lotId);
+        IEnumerable<DalBid> GetAllBidsForUser(int lotId);
         DalBid GetLastBidForLot(int lotId);
     }
 }

@@ -46,7 +46,6 @@ namespace DAL.Concrete
             var category = context.Set<Category>().FirstOrDefault(c => c.CategoryId == entity.Id);
             if (category != null)
             {
-                category.CategoryId = entity.Id;
                 category.Name = entity.Name;
             }
         }
