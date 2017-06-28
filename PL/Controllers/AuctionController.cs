@@ -39,7 +39,7 @@ namespace PL.Controllers
                 .Count();
 
             var lots = lotService.GetAllLots()
-                .Where(l => l.Name.Contains(searchResult))
+                .Where(l => l.Name.ToLowerInvariant().Contains(searchResult.ToLowerInvariant()))
                 .OrderByDescending(l => l.ExpirationTime)
                 .Select(l => l.ToMvcLot())
                 .Skip((page.Value - 1) * pageSize).Take(pageSize);

@@ -273,7 +273,7 @@ namespace PL.Controllers
                 }
                 lotService.UpdateLot(lotModel.ToBllLot());
 
-                return RedirectToAction("Index", "Auction");
+                return RedirectToAction("MyLots", "Profile");
             }
             return View(lotModel);
         }
