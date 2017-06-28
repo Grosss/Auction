@@ -8,6 +8,7 @@ namespace MvcPL
     {
         public void Configuration(IAppBuilder app)
         {
+            //
         }
     }
 }
